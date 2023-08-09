@@ -1,4 +1,5 @@
-class contact:
+
+class Contact:
     def __init__(self,nom,prenom,numero_telephone,adresse_email):
         self.nom=nom
         self.prenom=prenom
@@ -42,23 +43,41 @@ class contact:
     def setadresse_email(self,new_adresse_email):
         self.adresse_email=new_adresse_email
 
-
-
-class liste_contacts:
+class ListeContacts:
     def __init__(self):
-        self.contact=None
+        self.contact = None
 
-    def isEmpty(self):
-        return self.contact==None
+    def is_empty(self):
+        return self.contact is None
 
-    def add(self,item):
-        temp=contact(item)
-        temp.setNext(self.contact)
-        self.contact=temp
+    def add(self, item):
+        temp = Contact(item['nom'], item['prenom'], item['numero_telephone'], item['adresse_email'])
+        temp.setnext(self.contact)  # Utilisez "setnext" au lieu de "set_next"
+        self.contact = temp
 
-    def addAfter(self,base,item):
-        temp=contact(item)
-        temp.setNext(base.getNext())
-        base.setNext(temp)
+    def add_after(self, base, item):
+        temp = Contact(item['nom'], item['prenom'], item['numero_telephone'], item['adresse_email'])
+        temp.set_next(base.get_next())
+        base.set_next(temp)
 
 
+# Création de quelques contacts
+Contact1 = {"nom": "Doe", "prenom": "John", "numero_telephone": "123456789", "adresse_email": "john@example.com"}
+Contact2 = {"nom": "Smith", "prenom": "Jane", "numero_telephone": "987654321", "adresse_email": "jane@example.com"}
+
+# Création d'une liste de contacts
+Contacts_list = ListeContacts()
+
+# Ajout de contacts à la liste
+Contacts_list.add(Contact1)
+Contacts_list.add(Contact2)
+
+# Affichage des contacts
+current_Contact = Contacts_list.contact
+while current_Contact is not None:
+    print("Nom:", current_Contact.nom)
+    print("Prénom:", current_Contact.prenom)
+    print("Numéro de téléphone:", current_Contact.numero_telephone)
+    print("Adresse email:", current_Contact.adresse_email)
+    print()
+    current_Contact = current_Contact.next
